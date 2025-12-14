@@ -1,180 +1,231 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>DUENEX</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>DUENEX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      padding: 40px 20px;
-      font-family: Arial, sans-serif;
-      background: #eaf6ff;
-      color: #0f172a;
-      text-align: center;
-    }
+<style>
+body{
+  margin:0;
+  padding:40px 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:#eaf6ff;
+  color:#0f172a;
+  text-align:center;
+}
 
-    /* Fondo animado */
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
-      background-size: 50px;
-      background-repeat: repeat;
-      opacity: 0.05;
-    }
+/* Fondo sutil */
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background-image:
+    url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
+    url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
+    url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
+  background-size:45px;
+  background-repeat:repeat;
+  opacity:0.035;
+}
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
+/* Encabezado */
+h1{
+  font-size:50px;
+  margin-bottom:6px;
+  letter-spacing:1px;
+}
 
-    .subtitle {
-      font-size: 17px;
-      opacity: 0.85;
-      margin-bottom: 30px;
-    }
+.subtitle{
+  font-size:18px;
+  opacity:0.85;
+  margin-bottom:30px;
+}
 
-    .notice {
-      max-width: 720px;
-      margin: 0 auto 40px;
-      background: #dbeafe;
-      padding: 18px;
-      border-radius: 16px;
-      font-size: 15px;
-    }
+/* Aviso principal */
+.notice{
+  max-width:780px;
+  margin:0 auto 45px;
+  background:linear-gradient(135deg,#dbeafe,#eff6ff);
+  padding:20px;
+  border-radius:18px;
+  font-size:15px;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
 
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
+/* Productos */
+.products{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:32px;
+}
 
-    .product {
-      background: #ffffff;
-      width: 300px;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease;
-    }
+.product{
+  background:#ffffff;
+  width:310px;
+  padding:28px;
+  border-radius:22px;
+  box-shadow:0 22px 50px rgba(0,0,0,.15);
+  transition:transform .3s, box-shadow .3s;
+}
 
-    .product:hover {
-      transform: translateY(-6px);
-    }
+.product:hover{
+  transform:translateY(-8px);
+  box-shadow:0 30px 65px rgba(0,0,0,.2);
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 14px 22px;
-      border-radius: 12px;
-      background: #38bdf8;
-      color: #002b45;
-      font-weight: bold;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.25s, transform 0.3s;
-    }
+.product h3{
+  margin:12px 0 8px;
+  font-size:23px;
+}
 
-    .btn:hover {
-      background: #0ea5e9;
-      transform: scale(1.05);
-    }
+.product p{
+  font-size:15px;
+  opacity:.85;
+}
 
-    .plans {
-      margin-top: 20px;
-      display: none;
-    }
+/* Botones */
+.btn{
+  display:inline-block;
+  margin-top:16px;
+  padding:14px 24px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+  color:#002b45;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transition:.25s;
+}
 
-    .plan {
-      margin: 10px 0;
-    }
+.btn:hover{
+  transform:scale(1.06);
+}
 
-    .footer {
-      font-size: 12px;
-      opacity: 0.7;
-      margin-top: 40px;
-    }
-  </style>
+/* Planes */
+.plans{
+  margin-top:22px;
+  display:none;
+  animation:open .35s ease;
+}
 
-  <script>
-    function togglePlans(id) {
-      var sections = document.getElementsByClassName("plans");
-      for (var i = 0; i < sections.length; i++) {
-        sections[i].style.display = "none";
-      }
-      var el = document.getElementById(id);
-      el.style.display = el.style.display === "block" ? "none" : "block";
+@keyframes open{
+  from{opacity:0; transform:translateY(-10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.plan{
+  margin:10px 0;
+}
+
+/* Confianza */
+.trust{
+  max-width:950px;
+  margin:70px auto 20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+}
+
+.trust div{
+  background:#ffffff;
+  padding:20px;
+  width:270px;
+  border-radius:20px;
+  box-shadow:0 18px 40px rgba(0,0,0,.12);
+  font-size:14px;
+}
+
+/* Footer */
+.footer{
+  font-size:12px;
+  opacity:0.7;
+  margin-top:45px;
+}
+</style>
+
+<script>
+function togglePlans(id){
+  var sections=document.getElementsByClassName("plans");
+  for(var i=0;i<sections.length;i++){
+    if(sections[i].id !== id){
+      sections[i].style.display="none";
     }
-  </script>
+  }
+  var el=document.getElementById(id);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+</script>
 
 </head>
-
 <body>
 
-  <div class="background"></div>
+<div class="background"></div>
 
-  <h1>DUENEX</h1>
-  <p class="subtitle">Suscripciones digitales por meses</p>
+<h1>DUENEX</h1>
+<p class="subtitle">Suscripciones digitales flexibles</p>
 
-  <div class="notice">
-    💳 Pagos con Wompi (modo prueba)<br>
-    ⏱️ Entrega manual aproximada: <strong>10 minutos</strong><br>
-    📩 Entrega por correo o WhatsApp registrado
+<div class="notice">
+💳 <strong>Pagos seguros con Wompi</strong> (modo prueba)<br>
+📆 Planes por meses según disponibilidad<br>
+⏱️ Entrega <strong>manual</strong> en aproximadamente 10 minutos<br>
+📩 La información se envía al correo o WhatsApp del pago
+</div>
+
+<div class="products">
+
+  <!-- NETFLIX -->
+  <div class="product">
+    🎬
+    <h3>Netflix</h3>
+    <p>Suscripción por meses</p>
+    <div class="btn" onclick="togglePlans('netflix')">Elegir plan</div>
+    <div class="plans" id="netflix">
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">1 mes</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">3 meses</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">6 meses</a></div>
+    </div>
   </div>
 
-  <div class="products">
-
-    <!-- NETFLIX -->
-    <div class="product">
-      🎬
-      <h3>Netflix</h3>
-      <p>Suscripción por meses</p>
-      <div class="btn" onclick="togglePlans('netflix')">Elegir plan</div>
-      <div class="plans" id="netflix">
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">1 mes</a></div>
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">3 meses</a></div>
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">6 meses</a></div>
-      </div>
+  <!-- DISNEY -->
+  <div class="product">
+    🏰
+    <h3>Disney+</h3>
+    <p>Suscripción por meses</p>
+    <div class="btn" onclick="togglePlans('disney')">Elegir plan</div>
+    <div class="plans" id="disney">
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">1 mes</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">3 meses</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">6 meses</a></div>
     </div>
-
-    <!-- DISNEY -->
-    <div class="product">
-      🏰
-      <h3>Disney+</h3>
-      <p>Suscripción por meses</p>
-      <div class="btn" onclick="togglePlans('disney')">Elegir plan</div>
-      <div class="plans" id="disney">
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">1 mes</a></div>
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">3 meses</a></div>
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">6 meses</a></div>
-      </div>
-    </div>
-
-    <!-- AMAZON -->
-    <div class="product">
-      🛒
-      <h3>Amazon Prime</h3>
-      <p>Suscripción por meses</p>
-      <div class="btn" onclick="togglePlans('amazon')">Elegir plan</div>
-      <div class="plans" id="amazon">
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">1 mes</a></div>
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">3 meses</a></div>
-        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">6 meses</a></div>
-      </div>
-    </div>
-
   </div>
 
-  <div class="footer">
-    DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
+  <!-- AMAZON -->
+  <div class="product">
+    🛒
+    <h3>Amazon Prime</h3>
+    <p>Suscripción por meses</p>
+    <div class="btn" onclick="togglePlans('amazon')">Elegir plan</div>
+    <div class="plans" id="amazon">
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">1 mes</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">3 meses</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">6 meses</a></div>
+    </div>
   </div>
+
+</div>
+
+<div class="trust">
+  <div>🔒 Pagos protegidos mediante Wompi</div>
+  <div>⚡ Entrega rápida y manual</div>
+  <div>💬 Atención directa y personalizada</div>
+</div>
+
+<div class="footer">
+DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
+</div>
 
 </body>
 </html>
