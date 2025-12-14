@@ -2,79 +2,71 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Panel DUENEX</title>
+<title>DUENEX Admin</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family:"Segoe UI", Arial, sans-serif;
   background:#0f172a;
-  color:#fff;
+  color:#e5e7eb;
   padding:30px;
 }
 
-.login{
-  max-width:400px;
-  margin:120px auto;
+.login, .panel{
+  max-width:500px;
+  margin:80px auto;
   background:#1e293b;
   padding:30px;
-  border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
-  text-align:center;
+  border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
 }
+
+h2{text-align:center;margin-bottom:20px;}
 
 input{
   width:100%;
-  padding:12px;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:12px;
   border:none;
-  border-radius:10px;
-  margin-top:15px;
+  outline:none;
 }
 
 button{
-  margin-top:20px;
-  padding:10px 22px;
+  width:100%;
+  padding:14px;
   border:none;
-  border-radius:25px;
-  font-weight:bold;
+  border-radius:12px;
+  background:#38bdf8;
+  color:#002b45;
+  font-weight:700;
   cursor:pointer;
 }
 
-.btn{
-  background:#38bdf8;
-  color:#000;
+.order{
+  background:#0f172a;
+  padding:16px;
+  border-radius:14px;
+  margin-bottom:14px;
+  font-size:14px;
 }
 
-.panel{
-  display:none;
+.done{
+  opacity:.5;
+  text-decoration:line-through;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:#1e293b;
-  border-radius:12px;
-  overflow:hidden;
-}
-
-th, td{
-  padding:14px;
-  border-bottom:1px solid #334155;
-  text-align:center;
-}
-
-th{
-  background:#0284c7;
-}
-
-.entregar{
+.actions button{
+  width:auto;
+  margin-right:10px;
+  margin-top:10px;
   background:#22c55e;
 }
 
-.eliminar{
-  background:#ef4444;
-  color:#fff;
+.delete{
+  background:#ef4444 !important;
 }
 </style>
 </head>
@@ -82,77 +74,85 @@ th{
 <body>
 
 <!-- LOGIN -->
-<div class="login" id="login">
-  <h2>🔐 Acceso DUENEX</h2>
-  <input type="password" id="password" placeholder="Contraseña">
-  <button class="btn" onclick="login()">Entrar</button>
+<div class="login" id="loginBox">
+  <h2>🔐 DUENEX Admin</h2>
+  <input type="password" id="pass" placeholder="Contraseña">
+  <button onclick="login()">Entrar</button>
 </div>
 
 <!-- PANEL -->
-<div class="panel" id="panel">
-  <h1>📦 Pedidos DUENEX</h1>
+<div class="panel" id="panel" style="display:none">
+  <h2>📦 Pedidos</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Plan</th>
-        <th>Estado</th>
-        <th>Fecha</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody id="listaPedidos"></tbody>
-  </table>
+  <div id="orders"></div>
+
+  <hr style="margin:30px 0;opacity:.2">
+
+  <h3>➕ Agregar pedido manual</h3>
+  <input id="prod" placeholder="Producto (Netflix, Disney...)">
+  <input id="plan" placeholder="Plan (1 mes, 3 meses...)">
+  <input id="cliente" placeholder="Cliente">
+  <button onclick="addOrder()">Agregar</button>
 </div>
 
 <script>
-const CLAVE = "duenex123";
+const PASSWORD="duenex123";
 
 function login(){
-  const pass = document.getElementById("password").value;
-  if(pass === CLAVE){
-    document.getElementById("login").style.display = "none";
-    document.getElementById("panel").style.display = "block";
-    render();
-  } else {
+  if(document.getElementById("pass").value===PASSWORD){
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("panel").style.display="block";
+    loadOrders();
+  }else{
     alert("Contraseña incorrecta");
   }
 }
 
-let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-const tabla = document.getElementById("listaPedidos");
-
-function render(){
-  tabla.innerHTML = "";
-  pedidos.forEach((p,i)=>{
-    tabla.innerHTML += `
-    <tr>
-      <td>${p.producto}</td>
-      <td>${p.plan}</td>
-      <td>${p.estado}</td>
-      <td>${p.fecha}</td>
-      <td>
-        <button class="entregar" onclick="entregar(${i})">Entregado</button>
-        <button class="eliminar" onclick="eliminar(${i})">X</button>
-      </td>
-    </tr>`;
+function loadOrders(){
+  const orders=JSON.parse(localStorage.getItem("orders")||"[]");
+  const box=document.getElementById("orders");
+  box.innerHTML="";
+  orders.forEach((o,i)=>{
+    const d=document.createElement("div");
+    d.className="order"+(o.done?" done":"");
+    d.innerHTML=`
+      <b>${o.product}</b><br>
+      Plan: ${o.plan}<br>
+      Cliente: ${o.client}<br>
+      <div class="actions">
+        <button onclick="markDone(${i})">✔ Entregado</button>
+        <button class="delete" onclick="del(${i})">🗑 Eliminar</button>
+      </div>
+    `;
+    box.appendChild(d);
   });
 }
 
-function entregar(i){
-  pedidos[i].estado = "Entregado";
-  guardar();
+function addOrder(){
+  const orders=JSON.parse(localStorage.getItem("orders")||"[]");
+  orders.push({
+    product:prod.value,
+    plan:plan.value,
+    client:cliente.value,
+    done:false
+  });
+  localStorage.setItem("orders",JSON.stringify(orders));
+  prod.value=plan.value=cliente.value="";
+  loadOrders();
 }
 
-function eliminar(i){
-  pedidos.splice(i,1);
-  guardar();
+function markDone(i){
+  const orders=JSON.parse(localStorage.getItem("orders"));
+  orders[i].done=true;
+  localStorage.setItem("orders",JSON.stringify(orders));
+  loadOrders();
 }
 
-function guardar(){
-  localStorage.setItem("pedidos", JSON.stringify(pedidos));
-  render();
+function del(i){
+  const orders=JSON.parse(localStorage.getItem("orders"));
+  orders.splice(i,1);
+  localStorage.setItem("orders",JSON.stringify(orders));
+  loadOrders();
 }
 </script>
 
