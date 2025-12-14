@@ -14,9 +14,40 @@ body{
   padding:30px;
 }
 
-h1{
+.login{
+  max-width:400px;
+  margin:120px auto;
+  background:#1e293b;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
   text-align:center;
-  margin-bottom:30px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
+}
+
+button{
+  margin-top:20px;
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn{
+  background:#38bdf8;
+  color:#000;
+}
+
+.panel{
+  display:none;
 }
 
 table{
@@ -37,17 +68,8 @@ th{
   background:#0284c7;
 }
 
-button{
-  padding:6px 14px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
 .entregar{
   background:#22c55e;
-  color:#000;
 }
 
 .eliminar{
@@ -59,22 +81,45 @@ button{
 
 <body>
 
-<h1>📦 Pedidos DUENEX</h1>
+<!-- LOGIN -->
+<div class="login" id="login">
+  <h2>🔐 Acceso DUENEX</h2>
+  <input type="password" id="password" placeholder="Contraseña">
+  <button class="btn" onclick="login()">Entrar</button>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Producto</th>
-      <th>Plan</th>
-      <th>Estado</th>
-      <th>Fecha</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody id="listaPedidos"></tbody>
-</table>
+<!-- PANEL -->
+<div class="panel" id="panel">
+  <h1>📦 Pedidos DUENEX</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Plan</th>
+        <th>Estado</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="listaPedidos"></tbody>
+  </table>
+</div>
 
 <script>
+const CLAVE = "duenex123";
+
+function login(){
+  const pass = document.getElementById("password").value;
+  if(pass === CLAVE){
+    document.getElementById("login").style.display = "none";
+    document.getElementById("panel").style.display = "block";
+    render();
+  } else {
+    alert("Contraseña incorrecta");
+  }
+}
+
 let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
 const tabla = document.getElementById("listaPedidos");
 
@@ -109,8 +154,6 @@ function guardar(){
   localStorage.setItem("pedidos", JSON.stringify(pedidos));
   render();
 }
-
-render();
 </script>
 
 </body>
