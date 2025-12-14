@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel DUENEX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  background:#0f172a;
+  font-family:Arial, sans-serif;
+  color:#e5e7eb;
+  padding:40px;
+}
+.panel{
+  max-width:900px;
+  margin:auto;
+  background:#1e293b;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+h1{text-align:center;margin-bottom:30px;}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid #334155;
+}
+th{background:#020617;}
+.badge{
+  background:#22c55e;
+  color:#022c22;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px;
+}
+.btn{
+  padding:8px 12px;
+  background:#38bdf8;
+  color:#002b45;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.small{
+  font-size:12px;
+  opacity:.7;
+  margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+<h1>🔐 Panel DUENEX</h1>
+
+<table>
+<thead>
+<tr>
+  <th>Cliente</th>
+  <th>Producto</th>
+  <th>Plan</th>
+  <th>Estado</th>
+  <th>Acción</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+  <td>Ejemplo Cliente</td>
+  <td>Netflix</td>
+  <td>3 meses</td>
+  <td><span class="badge">Pagado</span></td>
+  <td><a class="btn" href="#">Entregar</a></td>
+</tr>
+</tbody>
+
+</table>
+
+<p class="small">
+Este panel es privado. No compartir el enlace.
+</p>
+</div>
+
+</body>
+</html>
