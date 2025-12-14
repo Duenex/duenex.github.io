@@ -1,92 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>DUENEX</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>DUENEX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#7dd3fc,#38bdf8);
-  color:#fff;
-  text-align:center;
-}
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+    }
 
-h1{
-  margin-top:40px;
-  font-size:48px;
-}
+    h1 {
+      font-size: 46px;
+      margin-bottom: 10px;
+    }
 
-.products{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:25px;
-  padding:40px;
-}
+    .sub {
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
 
-.card{
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(12px);
-  border-radius:20px;
-  padding:30px;
-  width:260px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.25);
-  transition: transform .3s;
-}
+    .productos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 40px;
+    }
 
-.card:hover{
-  transform: scale(1.07);
-}
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      width: 300px;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+    }
 
-button{
-  margin-top:20px;
-  padding:14px 26px;
-  border:none;
-  border-radius:30px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#fff;
-  color:#0284c7;
-  font-size:16px;
-}
-</style>
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 15px;
+      opacity: 0.9;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      display: block;
+      padding: 12px;
+      background: #22c55e;
+      color: #000;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 
 <body>
 
 <h1>DUENEX</h1>
-<p>Suscripciones digitales confiables</p>
+<p class="sub">Marketplace digital de suscripciones</p>
 
-<div class="products">
+<div class="productos">
 
-<div class="card">
-  <h3>Netflix</h3>
-  <p>Planes disponibles</p>
-  <button onclick="irAPlanes('Netflix')">Elegir</button>
+  <div class="card">
+    <h3>Netflix</h3>
+    <p>Suscripción digital · Entrega rápida</p>
+    <a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
+      💳 Comprar ahora
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>Disney+</h3>
+    <p>Suscripción digital · Entrega rápida</p>
+    <a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">
+      💳 Comprar ahora
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>Amazon Prime</h3>
+    <p>Suscripción digital · Entrega rápida</p>
+    <a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
+      💳 Comprar ahora
+    </a>
+  </div>
+
 </div>
 
-<div class="card">
-  <h3>Disney+</h3>
-  <p>Planes disponibles</p>
-  <button onclick="irAPlanes('Disney+')">Elegir</button>
-</div>
-
-<div class="card">
-  <h3>Amazon Prime</h3>
-  <p>Planes disponibles</p>
-  <button onclick="irAPlanes('Amazon Prime')">Elegir</button>
-</div>
-
-</div>
-
-<script>
-function irAPlanes(producto){
-  window.location.href = "planes.html?producto=" + encodeURIComponent(producto);
-}
-</script>
+<footer>
+DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
+</footer>
 
 </body>
 </html>
