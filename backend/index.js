@@ -1,17 +1,33 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ruta de prueba
 app.get("/", (req, res) => {
-  res.send("Backend DUENEX funcionando correctamente ✅");
+  res.json({ status: "DUENEX API OK" });
 });
 
-// Puerto para Render
-const PORT = process.env.PORT || 3000;
+app.post("/crear-pedido", (req, res) => {
+  const { producto, plan } = req.body;
+
+  if (!producto || !plan) {
+    return res.status(400).json({ success: false });
+  }
+
+  // ⚠️ Wompi de prueba (luego se cambia)
+  const wompiLink = "https://checkout.wompi.co/p/";
+
+  res.json({
+    success: true,
+    producto,
+    plan,
+    link: wompiLink
+  });
+});
+
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log("Servidor activo en puerto", PORT);
 });
