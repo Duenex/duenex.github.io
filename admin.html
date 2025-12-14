@@ -11,54 +11,49 @@ body{
   font-family:Segoe UI, Arial, sans-serif;
   background:#0f172a;
   color:#e5e7eb;
+  padding:30px;
 }
 
-.login{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+h1{margin-bottom:20px}
 
 .card{
   background:#1e293b;
-  padding:30px;
-  border-radius:20px;
-  width:320px;
-  text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
-}
-
-input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:none;
-  margin:15px 0;
-  font-size:16px;
+  padding:20px;
+  border-radius:18px;
+  margin-bottom:15px;
 }
 
 button{
-  width:100%;
-  padding:14px;
+  padding:10px 16px;
   border:none;
-  border-radius:14px;
+  border-radius:12px;
   background:#38bdf8;
-  color:#002b45;
   font-weight:700;
   cursor:pointer;
 }
 
-.admin{
-  display:none;
-  padding:30px;
+.login{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0f172a;
 }
 
-.order{
+.login-box{
   background:#1e293b;
-  padding:20px;
-  border-radius:16px;
-  margin-bottom:15px;
+  padding:30px;
+  border-radius:20px;
+  width:300px;
+  text-align:center;
+}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  margin:15px 0;
 }
 </style>
 </head>
@@ -67,44 +62,62 @@ button{
 
 <!-- LOGIN -->
 <div class="login" id="login">
-  <div class="card">
+  <div class="login-box">
     <h2>🔐 Admin DUENEX</h2>
-    <p>Ingrese la contraseña</p>
-    <input type="password" id="password" placeholder="Contraseña">
+    <input type="password" id="pass" placeholder="Contraseña">
     <button onclick="login()">Entrar</button>
   </div>
 </div>
 
-<!-- ADMIN -->
-<div class="admin" id="admin">
-  <h1>📦 Pedidos Pagados</h1>
-
-  <!-- PEDIDO EJEMPLO -->
-  <div class="order">
-    <strong>Producto:</strong> Netflix 3 meses<br>
-    <strong>Cliente:</strong> WhatsApp<br>
-    <strong>Estado:</strong> Pagado ✅<br><br>
-    <button onclick="entregar(this)">Entregar</button>
-  </div>
-
-</div>
+<h1>📦 Pedidos Pagados</h1>
+<div id="orders"></div>
 
 <script>
-const CLAVE = "Duenex123"; // 🔑 CAMBIA AQUÍ TU CONTRASEÑA
+const PASSWORD = "Juanduenas123*"; // cambia si quieres
+
+// 🔹 PEDIDOS PAGADOS (SIMULADOS DESDE WOMPI)
+const pedidosPagados = [
+  {
+    cliente:"WhatsApp",
+    producto:"Netflix",
+    plan:"3 meses",
+    estado:"Pagado"
+  },
+  {
+    cliente:"Correo",
+    producto:"Disney+",
+    plan:"1 mes",
+    estado:"Pagado"
+  }
+];
 
 function login(){
-  const pass = document.getElementById("password").value;
-  if(pass === CLAVE){
+  if(document.getElementById("pass").value === PASSWORD){
     document.getElementById("login").style.display="none";
-    document.getElementById("admin").style.display="block";
+    cargarPedidos();
   }else{
     alert("Contraseña incorrecta");
   }
 }
 
+function cargarPedidos(){
+  const cont = document.getElementById("orders");
+  pedidosPagados.forEach(p=>{
+    const div = document.createElement("div");
+    div.className="card";
+    div.innerHTML=`
+      <strong>${p.producto} – ${p.plan}</strong><br>
+      Cliente: ${p.cliente}<br>
+      Estado: ${p.estado} ✅<br><br>
+      <button onclick="entregar(this)">Entregar</button>
+    `;
+    cont.appendChild(div);
+  });
+}
+
 function entregar(btn){
-  btn.innerText = "Entregado ✔️";
-  btn.disabled = true;
+  btn.innerText="Entregado ✔️";
+  btn.disabled=true;
 }
 </script>
 
