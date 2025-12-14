@@ -30,7 +30,6 @@ body{
   background:var(--bg);
   color:var(--text);
   text-align:center;
-  transition:.3s;
 }
 
 .background{
@@ -40,13 +39,10 @@ body{
   background-image:
     url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
     url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
-    url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"),
-    url("https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"),
-    url("https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"),
-    url("https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg");
+    url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
   background-size:45px;
   background-repeat:repeat;
-  opacity:.04;
+  opacity:.05;
 }
 
 .toggle{
@@ -56,7 +52,6 @@ body{
   padding:10px 16px;
   border-radius:12px;
   background:var(--accent);
-  color:#002b45;
   font-weight:700;
   cursor:pointer;
 }
@@ -88,9 +83,7 @@ h1{font-size:50px;margin-bottom:6px;}
   transition:.3s;
 }
 
-.product:hover{
-  transform:translateY(-8px);
-}
+.product:hover{transform:translateY(-8px);}
 
 .btn{
   display:inline-block;
@@ -98,36 +91,12 @@ h1{font-size:50px;margin-bottom:6px;}
   padding:14px 24px;
   border-radius:14px;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#002b45;
   font-weight:700;
   cursor:pointer;
-  text-decoration:none;
 }
 
-.plans{
-  margin-top:22px;
-  display:none;
-}
-
+.plans{margin-top:20px;display:none;}
 .plan{margin:10px 0;}
-
-.trust{
-  max-width:1000px;
-  margin:70px auto 20px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:20px;
-  justify-content:center;
-}
-
-.trust div{
-  background:var(--card);
-  padding:20px;
-  width:270px;
-  border-radius:20px;
-  box-shadow:0 18px 40px rgba(0,0,0,.12);
-  font-size:14px;
-}
 
 .footer{
   font-size:12px;
@@ -149,27 +118,34 @@ function toggleMode(){
   document.body.classList.toggle("dark");
 }
 
-/* LISTO PARA AUTOMATIZACIÓN FUTURA
-function entregarAutomatico(orderID){
-  // Aquí luego se conectará:
-  // Wompi Webhook + envío correo/WhatsApp
-}
-*/
-</script>
+function comprar(producto, plan, link){
+  const orders = JSON.parse(localStorage.getItem("orders") || "[]");
 
+  orders.push({
+    product: producto,
+    plan: plan,
+    client: "Pendiente",
+    done: false,
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+  window.open(link, "_blank");
+}
+</script>
 </head>
+
 <body>
 
 <div class="background"></div>
 <div class="toggle" onclick="toggleMode()">🌙 / ☀️</div>
 
 <h1>DUENEX</h1>
-<p class="subtitle">Suscripciones digitales por meses</p>
+<p class="subtitle">Suscripciones digitales</p>
 
 <div class="notice">
-💳 Pagos con Wompi (modo prueba)<br>
-⏱️ Entrega manual ~10 minutos<br>
-📩 Envío por correo o WhatsApp
+💳 Pagos con Wompi (prueba)<br>
+⏱️ Entrega manual ~10 minutos
 </div>
 
 <div class="products">
@@ -179,9 +155,9 @@ function entregarAutomatico(orderID){
 <h3>🎬 Netflix</h3>
 <div class="btn" onclick="togglePlans('netflix')">Elegir plan</div>
 <div class="plans" id="netflix">
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">1 mes</a></div>
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">3 meses</a></div>
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">6 meses</a></div>
+  <div class="plan"><div class="btn" onclick="comprar('Netflix','1 mes','https://checkout.wompi.co/l/test_6iO6gb')">1 mes</div></div>
+  <div class="plan"><div class="btn" onclick="comprar('Netflix','3 meses','https://checkout.wompi.co/l/test_6iO6gb')">3 meses</div></div>
+  <div class="plan"><div class="btn" onclick="comprar('Netflix','6 meses','https://checkout.wompi.co/l/test_6iO6gb')">6 meses</div></div>
 </div>
 </div>
 
@@ -190,9 +166,9 @@ function entregarAutomatico(orderID){
 <h3>🏰 Disney+</h3>
 <div class="btn" onclick="togglePlans('disney')">Elegir plan</div>
 <div class="plans" id="disney">
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">1 mes</a></div>
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">3 meses</a></div>
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">6 meses</a></div>
+  <div class="plan"><div class="btn" onclick="comprar('Disney+','1 mes','https://checkout.wompi.co/l/test_Dm6kAy')">1 mes</div></div>
+  <div class="plan"><div class="btn" onclick="comprar('Disney+','3 meses','https://checkout.wompi.co/l/test_Dm6kAy')">3 meses</div></div>
+  <div class="plan"><div class="btn" onclick="comprar('Disney+','6 meses','https://checkout.wompi.co/l/test_Dm6kAy')">6 meses</div></div>
 </div>
 </div>
 
@@ -201,43 +177,12 @@ function entregarAutomatico(orderID){
 <h3>🛒 Amazon Prime</h3>
 <div class="btn" onclick="togglePlans('amazon')">Elegir plan</div>
 <div class="plans" id="amazon">
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">1 mes</a></div>
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">3 meses</a></div>
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">6 meses</a></div>
+  <div class="plan"><div class="btn" onclick="comprar('Amazon Prime','1 mes','https://checkout.wompi.co/l/test_tcraPW')">1 mes</div></div>
+  <div class="plan"><div class="btn" onclick="comprar('Amazon Prime','3 meses','https://checkout.wompi.co/l/test_tcraPW')">3 meses</div></div>
+  <div class="plan"><div class="btn" onclick="comprar('Amazon Prime','6 meses','https://checkout.wompi.co/l/test_tcraPW')">6 meses</div></div>
 </div>
 </div>
 
-<!-- NUEVOS PRODUCTOS -->
-<div class="product">
-<h3>🎵 Spotify</h3>
-<div class="btn" onclick="togglePlans('spotify')">Elegir plan</div>
-<div class="plans" id="spotify">
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">Planes mensuales</a></div>
-</div>
-</div>
-
-<div class="product">
-<h3>🍎 Apple Music</h3>
-<div class="btn" onclick="togglePlans('apple')">Elegir plan</div>
-<div class="plans" id="apple">
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">Planes mensuales</a></div>
-</div>
-</div>
-
-<div class="product">
-<h3>▶️ YouTube Premium</h3>
-<div class="btn" onclick="togglePlans('youtube')">Elegir plan</div>
-<div class="plans" id="youtube">
-<div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">Planes mensuales</a></div>
-</div>
-</div>
-
-</div>
-
-<div class="trust">
-<div>🔒 Pagos protegidos</div>
-<div>⚡ Entrega rápida</div>
-<div>🧠 Plataforma escalable</div>
 </div>
 
 <div class="footer">
