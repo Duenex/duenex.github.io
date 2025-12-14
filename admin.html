@@ -2,149 +2,110 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>DUENEX · Admin</title>
+<title>Admin DUENEX</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
-  padding:30px;
   font-family:Segoe UI, Arial, sans-serif;
-  background:#eaf6ff;
-  color:#0f172a;
+  background:#0f172a;
+  color:#e5e7eb;
 }
 
-h1{
-  text-align:center;
-  margin-bottom:10px;
-}
-
-.subtitle{
-  text-align:center;
-  opacity:.8;
-  margin-bottom:30px;
-}
-
-.panel{
-  max-width:900px;
-  margin:auto;
-  background:#ffffff;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 20px 45px rgba(0,0,0,.15);
-}
-
-.order{
-  border:1px solid #dbeafe;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:18px;
+.login{
+  min-height:100vh;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:center;
 }
 
-.info{
-  font-size:14px;
+.card{
+  background:#1e293b;
+  padding:30px;
+  border-radius:20px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
-.status{
-  font-weight:700;
+input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  margin:15px 0;
+  font-size:16px;
 }
-
-.paid{color:#16a34a;}
-.delivered{color:#2563eb;}
 
 button{
-  padding:10px 16px;
+  width:100%;
+  padding:14px;
   border:none;
-  border-radius:10px;
+  border-radius:14px;
   background:#38bdf8;
   color:#002b45;
   font-weight:700;
   cursor:pointer;
 }
 
-button:disabled{
-  background:#94a3b8;
-  cursor:not-allowed;
+.admin{
+  display:none;
+  padding:30px;
 }
 
-.empty{
-  text-align:center;
-  opacity:.6;
+.order{
+  background:#1e293b;
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:15px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Panel de Administración · DUENEX</h1>
-<p class="subtitle">Pedidos pagados desde Wompi (manual por ahora)</p>
+<!-- LOGIN -->
+<div class="login" id="login">
+  <div class="card">
+    <h2>🔐 Admin DUENEX</h2>
+    <p>Ingrese la contraseña</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+  </div>
+</div>
 
-<div class="panel" id="orders"></div>
+<!-- ADMIN -->
+<div class="admin" id="admin">
+  <h1>📦 Pedidos Pagados</h1>
+
+  <!-- PEDIDO EJEMPLO -->
+  <div class="order">
+    <strong>Producto:</strong> Netflix 3 meses<br>
+    <strong>Cliente:</strong> WhatsApp<br>
+    <strong>Estado:</strong> Pagado ✅<br><br>
+    <button onclick="entregar(this)">Entregar</button>
+  </div>
+
+</div>
 
 <script>
-// 🔹 PEDIDOS SIMULADOS (luego Wompi los pondrá aquí automáticamente)
-let pedidos = JSON.parse(localStorage.getItem("pedidos_duenex")) || [
-  {
-    id:"WMP-001",
-    producto:"Netflix",
-    plan:"1 mes",
-    cliente:"Cliente Wompi",
-    estado:"pagado"
+const CLAVE = "Duenex123"; // 🔑 CAMBIA AQUÍ TU CONTRASEÑA
+
+function login(){
+  const pass = document.getElementById("password").value;
+  if(pass === CLAVE){
+    document.getElementById("login").style.display="none";
+    document.getElementById("admin").style.display="block";
+  }else{
+    alert("Contraseña incorrecta");
   }
-];
-
-function guardar(){
-  localStorage.setItem("pedidos_duenex", JSON.stringify(pedidos));
 }
 
-function entregar(id){
-  pedidos = pedidos.map(p=>{
-    if(p.id===id) p.estado="entregado";
-    return p;
-  });
-  guardar();
-  render();
+function entregar(btn){
+  btn.innerText = "Entregado ✔️";
+  btn.disabled = true;
 }
-
-function render(){
-  const box=document.getElementById("orders");
-  box.innerHTML="";
-
-  if(pedidos.length===0){
-    box.innerHTML='<p class="empty">No hay pedidos aún</p>';
-    return;
-  }
-
-  pedidos.forEach(p=>{
-    const div=document.createElement("div");
-    div.className="order";
-    div.innerHTML=`
-      <div class="info">
-        <strong>${p.producto}</strong><br>
-        Plan: ${p.plan}<br>
-        Pedido: ${p.id}<br>
-        Cliente: ${p.cliente}<br>
-        Estado:
-        <span class="status ${p.estado==="pagado"?"paid":"delivered"}">
-          ${p.estado.toUpperCase()}
-        </span>
-      </div>
-      <div>
-        ${
-          p.estado==="pagado"
-          ? `<button onclick="entregar('${p.id}')">Entregar</button>`
-          : `<button disabled>Entregado</button>`
-        }
-      </div>
-    `;
-    box.appendChild(div);
-  });
-}
-
-render();
 </script>
 
 </body>
