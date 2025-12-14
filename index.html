@@ -4,62 +4,167 @@
   <meta charset="UTF-8">
   <title>DUENEX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
+      margin: 0;
+      padding: 40px 20px;
       font-family: Arial, sans-serif;
       background: #eaf6ff;
       color: #0f172a;
       text-align: center;
-      padding: 40px;
+      overflow-x: hidden;
     }
+
+    /* FONDO CON ICONOS REGADOS */
+    .background-pattern {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/5/5a/PlayStation_logo.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/2/2d/Xbox_one_logo.svg");
+      background-size: 55px;
+      background-repeat: repeat;
+      opacity: 0.05;
+    }
+
+    h1 {
+      font-size: 46px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      opacity: 0.85;
+      margin-bottom: 25px;
+    }
+
+    .notice {
+      background: #dbeafe;
+      max-width: 720px;
+      margin: 0 auto 35px;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 15px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
     .card {
       background: #ffffff;
-      max-width: 320px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 280px;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    a {
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      font-size: 22px;
+    }
+
+    .details {
+      font-size: 15px;
+      opacity: 0.85;
+      margin-bottom: 15px;
+    }
+
+    .btn {
       display: inline-block;
-      margin-top: 12px;
-      padding: 12px 20px;
+      padding: 14px 22px;
       background: #38bdf8;
       color: #002b45;
+      border-radius: 12px;
       text-decoration: none;
-      border-radius: 10px;
       font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+      transform: scale(1.06);
+    }
+
+    .footer {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 40px;
     }
   </style>
 </head>
+
 <body>
 
+<div class="background-pattern"></div>
+
 <h1>DUENEX</h1>
-<p>Suscripciones digitales por meses (1 mes, 3 meses y más)</p>
-<p>Entrega manual del acceso en aproximadamente 10 minutos después del pago</p>
-<p style="background:#dbeafe;padding:12px;border-radius:10px;max-width:500px;margin:20px
+<p class="subtitle">Suscripciones digitales por meses</p>
 
-<div class="card">
-  <h3>Netflix</h3>
-  <p>Planes por meses<br>Precio según duración</p>
-  <a href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">Comprar</a>
+<div class="notice">
+✅ Pago seguro con <strong>Wompi</strong><br>
+📆 Planes de 1 mes, 3 meses y más<br>
+⏱️ Entrega manual del acceso en aproximadamente <strong>10 minutos</strong><br>
+📩 Se entrega al correo o WhatsApp del pago
 </div>
 
-<div class="card">
-  <h3>Disney+</h3>
-  <p>Planes por meses<br>Precio según duración</p>
-  <a href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">Comprar</a>
+<div class="cards">
+
+  <div class="card">
+    🎬
+    <h3>Netflix</h3>
+    <div class="details">
+      Suscripción por meses<br>
+      Precio según duración
+    </div>
+    <a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
+      Comprar
+    </a>
+  </div>
+
+  <div class="card">
+    🏰
+    <h3>Disney+</h3>
+    <div class="details">
+      Suscripción por meses<br>
+      Precio según duración
+    </div>
+    <a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">
+      Comprar
+    </a>
+  </div>
+
+  <div class="card">
+    🛒
+    <h3>Amazon Prime</h3>
+    <div class="details">
+      Suscripción por meses<br>
+      Precio según duración
+    </div>
+    <a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
+      Comprar
+    </a>
+  </div>
+
 </div>
 
-<div class="card">
-  <h3>Amazon Prime</h3>
-  <p>Planes por meses<br>Precio según duración</p>
-  <a href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">Comprar</a>
+<div class="footer">
+DUENEX no está afiliada ni patrocinada por Netflix, Disney, Amazon, PlayStation o Xbox.
 </div>
-
-<p style="font-size:12px; margin-top:40px;">
-DUENEX no está afiliada a Netflix, Disney o Amazon.
-</p>
 
 </body>
 </html>
