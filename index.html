@@ -1,269 +1,172 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>DUENEX</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>DUENEX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      padding: 40px 20px;
-      font-family: Arial, sans-serif;
-      background: #eaf6ff;
-      color: #0f172a;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<style>
+body{
+  margin:0;
+  padding:40px 20px;
+  font-family:Arial, sans-serif;
+  background:#eaf6ff;
+  color:#0f172a;
+  text-align:center;
+}
 
-    /* FONDO CON ICONOS REGADOS */
-    .background-pattern {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/5/5a/PlayStation_logo.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/2/2d/Xbox_one_logo.svg");
-      background-size: 55px;
-      background-repeat: repeat;
-      opacity: 0.05;
-    }
+h1{
+  font-size:48px;
+  margin-bottom:10px;
+}
 
-    h1 {
-      font-size: 46px;
-      margin-bottom: 10px;
-    }
+.subtitle{
+  font-size:17px;
+  opacity:.85;
+  margin-bottom:30px;
+}
 
-    .subtitle {
-      font-size: 17px;
-      opacity: 0.85;
-      margin-bottom: 25px;
-    }
+.notice{
+  max-width:720px;
+  margin:0 auto 40px;
+  background:#dbeafe;
+  padding:18px;
+  border-radius:16px;
+  font-size:15px;
+}
 
-    .notice {
-      background: #dbeafe;
-      max-width: 720px;
-      margin: 0 auto 35px;
-      padding: 15px;
-      border-radius: 14px;
-      font-size: 15px;
-    }
+.products{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:30px;
+}
 
-    /* ANIMACIONES Y MEJORAS VISUALES */
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-    }
+.product{
+  background:#fff;
+  width:300px;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 20px 45px rgba(0,0,0,.15);
+  transition:.3s;
+}
 
-    .card {
-      background: #ffffff;
-      width: 280px;
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    }
+.product:hover{
+  transform:translateY(-8px);
+}
 
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
-      background-color: #f1f5f9;
-    }
+.product h3{
+  margin:10px 0;
+  font-size:22px;
+}
 
-    .card h3 {
-      margin: 10px 0;
-      font-size: 22px;
-    }
+.btn{
+  display:inline-block;
+  padding:14px 22px;
+  border-radius:12px;
+  background:#38bdf8;
+  color:#002b45;
+  font-weight:bold;
+  text-decoration:none;
+  cursor:pointer;
+  transition:.25s;
+}
 
-    .details {
-      font-size: 15px;
-      opacity: 0.85;
-      margin-bottom: 15px;
-    }
+.btn:hover{
+  background:#0ea5e9;
+  transform:scale(1.05);
+}
 
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      background: #38bdf8;
-      color: #002b45;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
+.plans{
+  margin-top:20px;
+  display:none;
+  animation:open .4s ease;
+}
 
-    .btn:hover {
-      background: #0ea5e9;
-      transform: scale(1.06);
-    }
+@keyframes open{
+  from{opacity:0; transform:translateY(-10px);}
+  to{opacity:1; transform:translateY(0);}
+}
 
-    .footer {
-      font-size: 12px;
-      opacity: 0.7;
-      margin-top: 40px;
-    }
+.plan{
+  background:#f1f5f9;
+  margin:10px 0;
+  padding:12px;
+  border-radius:12px;
+}
 
-    /* SECCIÓN DE CONFIANZA */
-    .trust-section {
-      background: #f8fafc;
-      padding: 40px;
-      margin-top: 40px;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    }
+.footer{
+  font-size:12px;
+  opacity:.7;
+  margin-top:45px;
+}
+</style>
 
-    .trust-section h2 {
-      font-size: 26px;
-      margin-bottom: 20px;
-    }
+<script>
+function togglePlans(id){
+  const plans=document.getElementById(id);
+  plans.style.display = plans.style.display === "block" ? "none" : "block";
+}
+</script>
 
-    .trust-section p {
-      font-size: 16px;
-      opacity: 0.8;
-      margin-bottom: 20px;
-    }
-
-    .trust-section ul {
-      list-style-type: none;
-      padding: 0;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .trust-section ul li {
-      margin-bottom: 8px;
-    }
-  </style>
 </head>
-
 <body>
-
-<div class="background-pattern"></div>
 
 <h1>DUENEX</h1>
 <p class="subtitle">Suscripciones digitales por meses</p>
 
 <div class="notice">
-✅ Pago seguro con <strong>Wompi</strong><br>
-📆 Planes de 1 mes, 3 meses y más<br>
-⏱️ Entrega manual del acceso en aproximadamente <strong>10 minutos</strong><br>
-📩 Se entrega al correo o WhatsApp del pago
+✅ Pago seguro con Wompi (modo prueba)<br>
+📆 Planes por meses según disponibilidad<br>
+⏱️ Entrega manual aproximada: <strong>10 minutos</strong><br>
+📩 Entrega vía correo o WhatsApp registrado
 </div>
 
-<div class="cards">
+<div class="products">
 
-  <!-- Netflix -->
-  <div class="card">
+  <!-- NETFLIX -->
+  <div class="product">
     🎬
     <h3>Netflix</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
+    <p>Suscripción por meses</p>
+    <div class="btn" onclick="togglePlans('netflix')">Elegir plan</div>
+    <div class="plans" id="netflix">
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">1 mes</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">3 meses</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">6 meses</a></div>
     </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
-      Comprar
-    </a>
   </div>
 
-  <!-- Disney -->
-  <div class="card">
+  <!-- DISNEY -->
+  <div class="product">
     🏰
     <h3>Disney+</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
+    <p>Suscripción por meses</p>
+    <div class="btn" onclick="togglePlans('disney')">Elegir plan</div>
+    <div class="plans" id="disney">
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">1 mes</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">3 meses</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">6 meses</a></div>
     </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">
-      Comprar
-    </a>
   </div>
 
-  <!-- Amazon -->
-  <div class="card">
+  <!-- AMAZON -->
+  <div class="product">
     🛒
     <h3>Amazon Prime</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
+    <p>Suscripción por meses</p>
+    <div class="btn" onclick="togglePlans('amazon')">Elegir plan</div>
+    <div class="plans" id="amazon">
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">1 mes</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">3 meses</a></div>
+      <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">6 meses</a></div>
     </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
-      Comprar
-    </a>
   </div>
 
-  <!-- Spotify -->
-  <div class="card">
-    🎶
-    <h3>Spotify</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
-    </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_XXXX" target="_blank">
-      Comprar
-    </a>
-  </div>
-
-  <!-- Apple Music -->
-  <div class="card">
-    🎵
-    <h3>Apple Music</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
-    </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_XXXX" target="_blank">
-      Comprar
-    </a>
-  </div>
-
-  <!-- PlayStation -->
-  <div class="card">
-    🎮
-    <h3>PlayStation</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
-    </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_XXXX" target="_blank">
-      Comprar
-    </a>
-  </div>
-
-  <!-- Xbox -->
-  <div class="card">
-    🎮
-    <h3>Xbox</h3>
-    <div class="details">
-      Suscripción por meses<br>
-      Precio según duración
-    </div>
-    <a class="btn" href="https://checkout.wompi.co/l/test_XXXX" target="_blank">
-      Comprar
-    </a>
-  </div>
-
-</div>
-
-<!-- SECCIÓN DE CONFIANZA -->
-<div class="trust-section">
-  <h2>¿Por qué confiar en DUENEX?</h2>
-  <p>Somos una plataforma confiable con años de experiencia en ventas de suscripciones digitales.</p>
-  <ul>
-    <li>✅ Entregas rápidas (aproximadamente 10 minutos)</li>
-    <li>✅ Pago seguro mediante <strong>Wompi</strong></li>
-    <li>✅ Atención al cliente dedicada y personalizada</li>
-    <li>✅ Años de experiencia en el mercado</li>
-  </ul>
 </div>
 
 <div class="footer">
-DUENEX no está afiliada ni patrocinada por Netflix, Disney, Amazon, PlayStation, Xbox o Spotify.
+DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
 </div>
 
 </body>
