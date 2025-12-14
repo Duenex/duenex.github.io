@@ -7,110 +7,144 @@
 
   <style>
     body {
-      background-color: #0f172a;
-      color: #ffffff;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #cfeeff, #eaf7ff);
+      color: #0f172a;
       text-align: center;
-      padding: 40px;
+      overflow-x: hidden;
     }
+
+    /* Fondo con tarjetas */
+    .background-cards {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
+      background-size: 80px;
+      background-repeat: repeat;
+      opacity: 0.05;
+    }
+
     h1 {
       font-size: 48px;
-      margin-bottom: 10px;
+      margin-top: 40px;
     }
-    p {
-      margin: 8px 0;
+
+    .subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+      margin-bottom: 30px;
     }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding-bottom: 40px;
+    }
+
     .card {
-      background: #1e293b;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 420px;
-      border-radius: 12px;
+      background: #ffffff;
+      width: 280px;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .buy-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 22px;
-      background: #22c55e;
-      color: #000;
-      text-decoration: none;
-      border-radius: 8px;
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      font-size: 22px;
+    }
+
+    .price {
+      font-size: 20px;
       font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 20px;
+      background: #38bdf8;
+      color: #002b45;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      font-size: 12px;
+      opacity: 0.7;
+      margin: 40px 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>DUENEX</h1>
-  <p>Marketplace digital de productos virtuales</p>
-  <p style="font-size:14px; opacity:0.8;">
-    Entrega en aproximadamente 10 minutos • Pagos seguros
-  </p>
+<div class="background-cards"></div>
 
-  <!-- NETFLIX -->
+<h1>DUENEX</h1>
+<p class="subtitle">
+Marketplace digital de productos virtuales <br>
+Entrega en aproximadamente 10 minutos • Pagos seguros
+</p>
+
+<div class="cards">
+
+  <!-- Netflix -->
   <div class="card">
-    🎁 <strong>Gift Card Netflix</strong><br>
-    💲 $30.000 COP
-    <br>
-    <a class="buy-btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
+    🎁
+    <h3>Gift Card Netflix</h3>
+    <div class="price">$30.000 COP</div>
+    <a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
       💳 Comprar ahora
     </a>
   </div>
 
-  <!-- DISNEY+ -->
+  <!-- Disney -->
   <div class="card">
-    🎁 <strong>Gift Card Disney+</strong><br>
-    💲 $30.000 COP
-    <br>
-    <a class="buy-btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">
+    🎁
+    <h3>Gift Card Disney+</h3>
+    <div class="price">$30.000 COP</div>
+    <a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">
       💳 Comprar ahora
     </a>
   </div>
 
-  <!-- AMAZON -->
+  <!-- Amazon -->
   <div class="card">
-    🎁 <strong>Gift Card Amazon</strong><br>
-    💲 $30.000 COP
-    <br>
-    <a class="buy-btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
+    🎁
+    <h3>Gift Card Amazon</h3>
+    <div class="price">$25.000 COP</div>
+    <a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
       💳 Comprar ahora
     </a>
   </div>
 
-  <!-- STEAM -->
-  <div class="card">
-    🎮 <strong>Gift Card Steam</strong><br>
-    💲 $30.000 COP
-    <br>
-    <a class="buy-btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
-      💳 Comprar ahora
-    </a>
-  </div>
+</div>
 
-  <!-- PLAYSTATION -->
-  <div class="card">
-    🎮 <strong>Gift Card PlayStation</strong><br>
-    💲 $30.000 COP
-    <br>
-    <a class="buy-btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
-      💳 Comprar ahora
-    </a>
-  </div>
-
-  <!-- XBOX -->
-  <div class="card">
-    🎮 <strong>Gift Card Xbox</strong><br>
-    💲 $30.000 COP
-    <br>
-    <a class="buy-btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
-      💳 Comprar ahora
-    </a>
-  </div>
-
-  <p style="margin-top:40px; font-size:12px; opacity:0.7;">
-    DUENEX no está afiliada ni patrocinada por Netflix, Disney, Amazon, Steam, PlayStation o Xbox.
-  </p>
+<div class="footer">
+DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
+</div>
 
 </body>
 </html>
