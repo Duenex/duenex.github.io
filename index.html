@@ -4,78 +4,61 @@
   <meta charset="UTF-8">
   <title>DUENEX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     body {
-      margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #dff3ff, #f4fbff);
+      background: #eaf6ff;
       color: #0f172a;
       text-align: center;
-      overflow-x: hidden;
+      padding: 40px;
     }
-
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
-        url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
-      background-size: 70px;
-      background-repeat: repeat;
-      opacity: 0.04;
-    }
-
-    h1 {
-      font-size: 48px;
-      margin-top: 40px;
-    }
-
-    .subtitle {
-      font-size: 17px;
-      opacity: 0.85;
-      margin-bottom: 20px;
-    }
-
-    .notice {
-      background: #e0f2fe;
-      border: 1px solid #38bdf8;
-      max-width: 720px;
-      margin: 0 auto 35px;
-      padding: 15px;
-      border-radius: 14px;
-      font-size: 15px;
-    }
-
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      padding-bottom: 50px;
-    }
-
     .card {
       background: #ffffff;
-      width: 290px;
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-      transition: all 0.3s ease;
+      max-width: 320px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+    a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 20px;
+      background: #38bdf8;
+      color: #002b45;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
     }
+  </style>
+</head>
+<body>
 
-    .card h3 {
-      margin: 12px 0;
-      font-size: 22px;
-    }
+<h1>DUENEX</h1>
+<p>Suscripciones digitales por meses</p>
+<p>Entrega manual en aproximadamente 10 minutos</p>
 
-    .details {
-      font-size
+<div class="card">
+  <h3>Netflix</h3>
+  <p>Planes por meses<br>Precio según duración</p>
+  <a href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">Comprar</a>
+</div>
+
+<div class="card">
+  <h3>Disney+</h3>
+  <p>Planes por meses<br>Precio según duración</p>
+  <a href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">Comprar</a>
+</div>
+
+<div class="card">
+  <h3>Amazon Prime</h3>
+  <p>Planes por meses<br>Precio según duración</p>
+  <a href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">Comprar</a>
+</div>
+
+<p style="font-size:12px; margin-top:40px;">
+DUENEX no está afiliada a Netflix, Disney o Amazon.
+</p>
+
+</body>
+</html>
