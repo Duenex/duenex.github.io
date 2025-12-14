@@ -7,109 +7,174 @@
 
   <style>
     body {
-      background-color: #0f172a;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      margin: 0;
       padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      background: #eaf6ff;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    /* Fondo animado */
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
+        url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
+      background-size: 50px;
+      background-repeat: repeat;
+      opacity: 0.05;
     }
 
     h1 {
-      font-size: 46px;
+      font-size: 48px;
       margin-bottom: 10px;
     }
 
-    .sub {
+    .subtitle {
+      font-size: 17px;
       opacity: 0.85;
       margin-bottom: 30px;
     }
 
-    .productos {
+    .notice {
+      max-width: 720px;
+      margin: 0 auto 40px;
+      background: #dbeafe;
+      padding: 18px;
+      border-radius: 16px;
+      font-size: 15px;
+    }
+
+    .products {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 25px;
-      margin-top: 40px;
+      gap: 30px;
     }
 
-    .card {
-      background: #1e293b;
-      padding: 25px;
+    .product {
+      background: #ffffff;
       width: 300px;
-      border-radius: 16px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-      transition: transform 0.3s;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
     }
 
-    .card:hover {
+    .product:hover {
       transform: translateY(-6px);
     }
 
-    .card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      font-size: 15px;
-      opacity: 0.9;
-      margin-bottom: 18px;
-    }
-
     .btn {
-      display: block;
-      padding: 12px;
-      background: #22c55e;
-      color: #000;
-      text-decoration: none;
-      border-radius: 10px;
+      display: inline-block;
+      margin-top: 15px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      background: #38bdf8;
+      color: #002b45;
       font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.3s;
     }
 
-    footer {
-      margin-top: 50px;
+    .btn:hover {
+      background: #0ea5e9;
+      transform: scale(1.05);
+    }
+
+    .plans {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .plan {
+      margin: 10px 0;
+    }
+
+    .footer {
       font-size: 12px;
       opacity: 0.7;
+      margin-top: 40px;
     }
   </style>
+
+  <script>
+    function togglePlans(id) {
+      var sections = document.getElementsByClassName("plans");
+      for (var i = 0; i < sections.length; i++) {
+        sections[i].style.display = "none";
+      }
+      var el = document.getElementById(id);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
 </head>
 
 <body>
 
-<h1>DUENEX</h1>
-<p class="sub">Marketplace digital de suscripciones</p>
+  <div class="background"></div>
 
-<div class="productos">
+  <h1>DUENEX</h1>
+  <p class="subtitle">Suscripciones digitales por meses</p>
 
-  <div class="card">
-    <h3>Netflix</h3>
-    <p>Suscripción digital · Entrega rápida</p>
-    <a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">
-      💳 Comprar ahora
-    </a>
+  <div class="notice">
+    💳 Pagos con Wompi (modo prueba)<br>
+    ⏱️ Entrega manual aproximada: <strong>10 minutos</strong><br>
+    📩 Entrega por correo o WhatsApp registrado
   </div>
 
-  <div class="card">
-    <h3>Disney+</h3>
-    <p>Suscripción digital · Entrega rápida</p>
-    <a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">
-      💳 Comprar ahora
-    </a>
+  <div class="products">
+
+    <!-- NETFLIX -->
+    <div class="product">
+      🎬
+      <h3>Netflix</h3>
+      <p>Suscripción por meses</p>
+      <div class="btn" onclick="togglePlans('netflix')">Elegir plan</div>
+      <div class="plans" id="netflix">
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">1 mes</a></div>
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">3 meses</a></div>
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_6iO6gb" target="_blank">6 meses</a></div>
+      </div>
+    </div>
+
+    <!-- DISNEY -->
+    <div class="product">
+      🏰
+      <h3>Disney+</h3>
+      <p>Suscripción por meses</p>
+      <div class="btn" onclick="togglePlans('disney')">Elegir plan</div>
+      <div class="plans" id="disney">
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">1 mes</a></div>
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">3 meses</a></div>
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_Dm6kAy" target="_blank">6 meses</a></div>
+      </div>
+    </div>
+
+    <!-- AMAZON -->
+    <div class="product">
+      🛒
+      <h3>Amazon Prime</h3>
+      <p>Suscripción por meses</p>
+      <div class="btn" onclick="togglePlans('amazon')">Elegir plan</div>
+      <div class="plans" id="amazon">
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">1 mes</a></div>
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">3 meses</a></div>
+        <div class="plan"><a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">6 meses</a></div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h3>Amazon Prime</h3>
-    <p>Suscripción digital · Entrega rápida</p>
-    <a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
-      💳 Comprar ahora
-    </a>
+  <div class="footer">
+    DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
   </div>
-
-</div>
-
-<footer>
-DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
-</footer>
 
 </body>
 </html>
