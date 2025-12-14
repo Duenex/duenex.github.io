@@ -2,155 +2,142 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>DUENEX Admin</title>
+<title>Admin DUENEX</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
-  margin:0;
-  font-family:"Segoe UI", Arial, sans-serif;
-  background:#0f172a;
-  color:#e5e7eb;
+  font-family:Segoe UI, Arial, sans-serif;
+  background:#f1f5f9;
   padding:30px;
 }
 
-.login, .panel{
-  max-width:520px;
-  margin:80px auto;
-  background:#1e293b;
-  padding:30px;
-  border-radius:18px;
-  box-shadow:0 20px 50px rgba(0,0,0,.45);
+h1{margin-bottom:10px;}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 15px 35px rgba(0,0,0,.1);
 }
 
-h2{text-align:center;margin-bottom:20px;}
-
-input{
-  width:100%;
+th,td{
   padding:14px;
-  margin-bottom:14px;
-  border-radius:12px;
-  border:none;
+  text-align:left;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
+th{
   background:#38bdf8;
   color:#002b45;
-  font-weight:700;
+}
+
+tr:nth-child(even){
+  background:#f8fafc;
+}
+
+.btn{
+  padding:8px 14px;
+  border:none;
+  border-radius:10px;
   cursor:pointer;
+  font-weight:600;
 }
 
-.order{
-  background:#0f172a;
-  padding:16px;
-  border-radius:14px;
-  margin-bottom:14px;
-  font-size:14px;
-}
-
-.actions button{
-  width:auto;
-  margin-top:10px;
+.entregar{
   background:#22c55e;
+  color:#fff;
 }
 
-.delete{
-  background:#ef4444 !important;
+.entregado{
+  background:#94a3b8;
+  color:#fff;
+  cursor:not-allowed;
+}
+
+.logout{
+  margin-top:20px;
+  padding:10px 18px;
+  border-radius:10px;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div class="login" id="loginBox">
-  <h2>🔐 DUENEX Admin</h2>
-  <input type="password" id="pass" placeholder="Contraseña">
-  <button onclick="login()">Entrar</button>
-</div>
+<h1>📦 Pedidos Pagados</h1>
+<p>Solo aparecen pedidos confirmados por Wompi</p>
 
-<!-- PANEL -->
-<div class="panel" id="panel" style="display:none">
-  <h2>💰 Pedidos PAGADOS</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Producto</th>
+<th>Plan</th>
+<th>Cliente</th>
+<th>Estado</th>
+<th>Acción</th>
+</tr>
+</thead>
 
-  <div id="orders"></div>
+<tbody id="tablaPedidos"></tbody>
+</table>
 
-  <hr style="margin:30px 0;opacity:.2">
-
-  <h3>➕ Registrar pedido pagado</h3>
-  <input id="prod" placeholder="Producto (Netflix, Disney...)">
-  <input id="plan" placeholder="Plan (1 mes, 3 meses...)">
-  <input id="cliente" placeholder="Cliente / Correo">
-  <button onclick="addPaid()">Agregar como PAGADO</button>
-</div>
+<button class="logout" onclick="logout()">Cerrar sesión</button>
 
 <script>
-const PASSWORD="duenex123";
-
-function login(){
-  if(pass.value===PASSWORD){
-    loginBox.style.display="none";
-    panel.style.display="block";
-    loadOrders();
-  }else{
-    alert("Contraseña incorrecta");
-  }
+// 🔐 Seguridad básica
+if(localStorage.getItem("admin")!=="true"){
+  window.location="login.html";
 }
 
-function loadOrders(){
-  const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-  const box = document.getElementById("orders");
-  box.innerHTML = "";
+// 🔁 PEDIDOS SIMULADOS (Wompi prueba)
+// Luego esto se reemplaza por Webhook real
+let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [
+  {id:1, producto:"Netflix", plan:"3 meses", cliente:"WhatsApp", estado:"pagado"},
+  {id:2, producto:"Disney+", plan:"1 mes", cliente:"Correo", estado:"pagado"}
+];
 
-  const pagados = orders.filter(o => o.status === "pagado");
-
-  if(pagados.length === 0){
-    box.innerHTML = "<p>No hay pedidos pagados.</p>";
-    return;
-  }
-
-  pagados.forEach((o,i)=>{
-    const d = document.createElement("div");
-    d.className="order";
-    d.innerHTML=`
-      <b>${o.product}</b><br>
-      Plan: ${o.plan}<br>
-      Cliente: ${o.client}<br>
-      Fecha: ${o.date}<br>
-      <div class="actions">
-        <button class="delete" onclick="del(${i})">🗑 Eliminar</button>
-      </div>
+function render(){
+  const tabla=document.getElementById("tablaPedidos");
+  tabla.innerHTML="";
+  pedidos.forEach((p,i)=>{
+    tabla.innerHTML+=`
+    <tr>
+      <td>#${p.id}</td>
+      <td>${p.producto}</td>
+      <td>${p.plan}</td>
+      <td>${p.cliente}</td>
+      <td>${p.estado}</td>
+      <td>
+        ${
+          p.estado==="pagado"
+          ? `<button class="btn entregar" onclick="entregar(${i})">Entregar</button>`
+          : `<button class="btn entregado">Entregado</button>`
+        }
+      </td>
+    </tr>
     `;
-    box.appendChild(d);
   });
 }
 
-function addPaid(){
-  const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-
-  orders.push({
-    product: prod.value,
-    plan: plan.value,
-    client: cliente.value,
-    status: "pagado",
-    date: new Date().toLocaleString()
-  });
-
-  localStorage.setItem("orders", JSON.stringify(orders));
-  prod.value = plan.value = cliente.value = "";
-  loadOrders();
+function entregar(i){
+  pedidos[i].estado="entregado";
+  localStorage.setItem("pedidos",JSON.stringify(pedidos));
+  render();
 }
 
-function del(i){
-  const orders = JSON.parse(localStorage.getItem("orders"));
-  orders.splice(i,1);
-  localStorage.setItem("orders", JSON.stringify(orders));
-  loadOrders();
+function logout(){
+  localStorage.removeItem("admin");
+  window.location="login.html";
 }
+
+render();
 </script>
 
 </body>
