@@ -4,108 +4,109 @@
 <meta charset="UTF-8">
 <title>Panel DUENEX</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
+  margin:0;
+  font-family: Arial, sans-serif;
   background:#0f172a;
-  font-family:Arial, sans-serif;
-  color:#e5e7eb;
-  padding:40px;
-}
-.panel{
-  max-width:900px;
-  margin:auto;
-  background:#1e293b;
+  color:#fff;
   padding:30px;
-  border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
 }
-h1{text-align:center;margin-bottom:20px;}
-table{width:100%;border-collapse:collapse;}
-th,td{padding:12px;border-bottom:1px solid #334155;}
-th{background:#020617;}
-.badge{background:#22c55e;color:#022c22;padding:5px 10px;border-radius:8px;font-size:12px;}
-.btn{padding:6px 10px;background:#38bdf8;color:#002b45;border-radius:8px;border:none;font-weight:bold;cursor:pointer;}
-.small{font-size:12px;opacity:.6;margin-top:10px;}
-.add{
-  margin-bottom:20px;
-  background:#020617;
-  padding:15px;
-  border-radius:14px;
+
+h1{
+  text-align:center;
+  margin-bottom:30px;
 }
-input{
-  padding:8px;
-  border-radius:8px;
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#1e293b;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+th, td{
+  padding:14px;
+  border-bottom:1px solid #334155;
+  text-align:center;
+}
+
+th{
+  background:#0284c7;
+}
+
+button{
+  padding:6px 14px;
   border:none;
-  margin-right:5px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.entregar{
+  background:#22c55e;
+  color:#000;
+}
+
+.eliminar{
+  background:#ef4444;
+  color:#fff;
 }
 </style>
 </head>
 
 <body>
 
-<div class="panel">
-<h1>🔐 Panel DUENEX</h1>
-
-<div class="add">
-<input id="cliente" placeholder="Cliente">
-<input id="producto" placeholder="Producto">
-<input id="plan" placeholder="Plan">
-<button class="btn" onclick="agregar()">Simular compra</button>
-</div>
+<h1>📦 Pedidos DUENEX</h1>
 
 <table>
-<thead>
-<tr>
-  <th>Cliente</th>
-  <th>Producto</th>
-  <th>Plan</th>
-  <th>Estado</th>
-  <th>Acción</th>
-</tr>
-</thead>
-<tbody id="lista"></tbody>
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Plan</th>
+      <th>Estado</th>
+      <th>Fecha</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody id="listaPedidos"></tbody>
 </table>
 
-<p class="small">
-Simulación interna · No pagos reales
-</p>
-</div>
-
 <script>
-let pedidos = JSON.parse(localStorage.getItem("duenex_pedidos")) || [];
+let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+const tabla = document.getElementById("listaPedidos");
 
 function render(){
-  const t=document.getElementById("lista");
-  t.innerHTML="";
+  tabla.innerHTML = "";
   pedidos.forEach((p,i)=>{
-    t.innerHTML+=`
+    tabla.innerHTML += `
     <tr>
-      <td>${p.cliente}</td>
       <td>${p.producto}</td>
       <td>${p.plan}</td>
       <td>${p.estado}</td>
+      <td>${p.fecha}</td>
       <td>
-        ${p.estado==="Pagado"?
-        `<button class="btn" onclick="entregar(${i})">Entregar</button>`:
-        "✔"}
+        <button class="entregar" onclick="entregar(${i})">Entregado</button>
+        <button class="eliminar" onclick="eliminar(${i})">X</button>
       </td>
     </tr>`;
   });
-  localStorage.setItem("duenex_pedidos",JSON.stringify(pedidos));
-}
-
-function agregar(){
-  pedidos.push({
-    cliente:cliente.value,
-    producto:producto.value,
-    plan:plan.value,
-    estado:"Pagado"
-  });
-  render();
 }
 
 function entregar(i){
-  pedidos[i].estado="Entregado";
+  pedidos[i].estado = "Entregado";
+  guardar();
+}
+
+function eliminar(i){
+  pedidos.splice(i,1);
+  guardar();
+}
+
+function guardar(){
+  localStorage.setItem("pedidos", JSON.stringify(pedidos));
   render();
 }
 
