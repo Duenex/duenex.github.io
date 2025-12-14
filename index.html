@@ -10,14 +10,14 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #cfeeff, #eaf7ff);
+      background: linear-gradient(180deg, #dff3ff, #f4fbff);
       color: #0f172a;
       text-align: center;
       overflow-x: hidden;
     }
 
-    /* Fondo con tarjetas */
-    .background-cards {
+    /* Fondo con íconos */
+    .background {
       position: fixed;
       inset: 0;
       z-index: -1;
@@ -25,9 +25,9 @@
         url("https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"),
         url("https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_icon.svg"),
         url("https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg");
-      background-size: 80px;
+      background-size: 70px;
       background-repeat: repeat;
-      opacity: 0.05;
+      opacity: 0.04;
     }
 
     h1 {
@@ -36,9 +36,19 @@
     }
 
     .subtitle {
-      font-size: 18px;
-      opacity: 0.8;
-      margin-bottom: 30px;
+      font-size: 17px;
+      opacity: 0.85;
+      margin-bottom: 25px;
+    }
+
+    .notice {
+      background: #e0f2fe;
+      border: 1px solid #38bdf8;
+      max-width: 700px;
+      margin: 0 auto 35px;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 15px;
     }
 
     .cards {
@@ -46,7 +56,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 25px;
-      padding-bottom: 40px;
+      padding-bottom: 50px;
     }
 
     .card {
@@ -54,17 +64,17 @@
       width: 280px;
       padding: 25px;
       border-radius: 18px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+      transition: all 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
     }
 
     .card h3 {
-      margin: 10px 0;
+      margin: 12px 0;
       font-size: 22px;
     }
 
@@ -76,18 +86,18 @@
 
     .btn {
       display: inline-block;
-      padding: 14px 20px;
+      padding: 14px 22px;
       background: #38bdf8;
       color: #002b45;
       border-radius: 12px;
       text-decoration: none;
       font-weight: bold;
-      transition: background 0.3s ease, transform 0.2s ease;
+      transition: background 0.3s, transform 0.2s;
     }
 
     .btn:hover {
       background: #0ea5e9;
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
 
     .footer {
@@ -100,13 +110,18 @@
 
 <body>
 
-<div class="background-cards"></div>
+<div class="background"></div>
 
 <h1>DUENEX</h1>
 <p class="subtitle">
-Marketplace digital de productos virtuales <br>
-Entrega en aproximadamente 10 minutos • Pagos seguros
+Marketplace digital de productos virtuales
 </p>
+
+<div class="notice">
+✅ Pago 100% seguro con <strong>Wompi</strong><br>
+⏱️ Entrega manual del código en <strong>aprox. 10 minutos</strong> después del pago<br>
+📩 La entrega se realiza al <strong>correo o WhatsApp</strong> registrado en el pago
+</div>
 
 <div class="cards">
 
@@ -134,7 +149,7 @@ Entrega en aproximadamente 10 minutos • Pagos seguros
   <div class="card">
     🎁
     <h3>Gift Card Amazon</h3>
-    <div class="price">$25.000 COP</div>
+    <div class="price">$30.000 COP</div>
     <a class="btn" href="https://checkout.wompi.co/l/test_tcraPW" target="_blank">
       💳 Comprar ahora
     </a>
@@ -143,7 +158,8 @@ Entrega en aproximadamente 10 minutos • Pagos seguros
 </div>
 
 <div class="footer">
-DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.
+DUENEX no está afiliada ni patrocinada por Netflix, Disney o Amazon.<br>
+Los códigos se entregan manualmente tras confirmación del pago.
 </div>
 
 </body>
